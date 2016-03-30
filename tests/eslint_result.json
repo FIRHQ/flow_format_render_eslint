@@ -1,0 +1,39 @@
+[
+  {
+    "filePath": "/home/flow/build/ORG_NAME/PROJECT_NAME/index.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0
+  },
+  {
+    "filePath": "/home/flow/build/ORG_NAME/PROJECT_NAME/bin/flow-check.js",
+    "messages": [
+      {
+        "ruleId": "standard/object-curly-even-spacing",
+        "severity": 2,
+        "message": "A space is required after '{'",
+        "line": 5,
+        "column": 39,
+        "nodeType": "ObjectExpression",
+        "source": "  cp.execFileSync(flowBin, ['check'], {stdio: 'inherit'});"
+      },
+      {
+        "ruleId": "standard/object-curly-even-spacing",
+        "severity": 2,
+        "message": "A space is required before '}'",
+        "line": 5,
+        "column": 56,
+        "nodeType": "ObjectExpression",
+        "source": "  cp.execFileSync(flowBin, ['check'], {stdio: 'inherit'});"
+      }
+    ],
+    "errorCount": 2,
+    "warningCount": 0
+  },
+  {
+    "filePath": "/home/flow/build/ORG_NAME/PROJECT_NAME/src/views/home.js",
+    "messages": [],
+    "errorCount": 0,
+    "warningCount": 0
+  }
+]
