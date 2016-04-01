@@ -16,7 +16,17 @@ process.on("uncaughtException", function(err){
 });
 
 var eslintResult = process.env.FLOW_ESLINT_RESULT_JSON;
-var eslintResultFile = process.env.FLOW_ESLINT_RESULT_PATH;
+var eslintResultFile = process.env.FLOW_ESLINT_LOG_PATH;
+
+var project = {
+  name: process.env.FLOW_PROJECT_NAME,
+  id: process.env.FLOW_PROJECT_ID
+}
+
+var event = {
+  number: process.env.FLOW_EVENT_NUMBER,
+  id: process.env.FLOW_EVENT_ID
+}
 
 if (!eslintResult && !eslintResultFile) {
   console.log('WARNING: Eslint result json or result file is required');
@@ -24,6 +34,9 @@ if (!eslintResult && !eslintResultFile) {
 }
 
 renderer({
+  project: project,
+
+  event: event,
 
   template: path.join(__dirname, '../lib/templates/layout.jade'),
 

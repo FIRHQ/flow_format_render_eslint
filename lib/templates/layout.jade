@@ -3,14 +3,180 @@ html(lang='en')
   head
     title flow.ci - eslint format renderer
     link(rel='stylesheet', href='https://cdnjs.cloudflare.com/ajax/libs/normalize/4.0.0/normalize.min.css')
-    link(rel='stylesheet', href='https://fonts.useso.com/css?family=Open+Sans:400,300,600')
+    link(rel='stylesheet', href='http://fonts.useso.com/css?family=Open+Sans:400,300,600')
     style.
       body{
-        font-family: 'Open Sans';
+        background-color: #f0f0f5;
+        font-size: 14px;
+        color: #42424a;
+        font-family: Open Sans;
+      }
+      .text-error {
+        color: #f25367;
+      }
+      .text-normal{
+        color: #9b9b9b;
+      }
+      .text-yellow{
+        color: #d4af1f;
+      }
+      .text-grey{
+        color: #a2a4a7;
+      }
+      .text-black{
+        color: #20202a;
+      }
+      .severity{
+        color: #fff;
+        border-radius: 3px;
+        text-align: center;
+      }
+      //- .severity-refactor{
+      //-   background-color: #3691F4;
+      //- }
+      //- .severity-convention{
+      //-   background-color: #9013FE;
+      //- }
+      .severity-warning{
+        background-color: #F8CC1C;
+      }
+      .severity-error{
+        background-color: #F25367;
+      }
+      //- .severity-fatal{
+      //-   background-color: #000000;
+      //- }
+    style.
+      a {
+        text-decoration: none;
+      }
+      .header{
+        background-color: #20202a;
+        color: #fff;
+        padding: 40px;
+        display: flex;
+      }
+      .project-wrap {
+        flex: 1 1 auto;
+      }
+      .project-wrap .name{
+        font-size: 22px;
+        line-height: 30px;
+        margin-bottom: 10px;
+      }
+      .project-result{
+        display: flex;
+      }
+      .project-result .col{
+        margin-right: 40px;
+        text-align: right;
+      }
+      .project-result .col .name {
+      }
+      .project-result .col .value {
+        font-size: 20px;
+        line-height: 30px;
+      }
+
+      .format-result{
+        padding: 40px;
+      }
+      .file-wrap{
+        border-radius: 5px;
+        border: 1px solid #cbcbcb;
+        box-shadow: 0px 0px 0px 6px #e6e6ea;
+        overflow: hidden;
+        margin-bottom: 40px;
+      }
+      .file-wrap .file-name{
+        padding: 20px;
+        background-color: #f6f6f6;
+        background: linear-gradient(to top, #f1f1f1, #f9f9f9);
+        font-size: 16px;
+      }
+      .file-wrap .content .item{
+        padding: 20px 40px;
+        border-top: 1px solid #cbcbcb;
+        background-color: #fff;
+        display: flex;
+        align-items: flex-start;
+      }
+      .file-wrap .content .item .severity{
+        flex: 0 0 100px;
+        padding: 4px 8px;
+      }
+      .file-wrap .content .item .location{
+        flex: 0 0 100px;
+        margin: 0px 20px;
+        padding: 4px 0px;
+      }
+      .file-wrap .content .item .msg{
+        flex: 1 1 auto;
+      }
+      .msg .message {
+        margin-bottom: 10px;
+        line-height: 1.4;
+      }
+      .msg .rule_id {
+        font-size: 13px;
+      }
+      }
+      .msg .source pre{
+        border-left: 4px solid #f6f6f6;
+      }
+      footer{
+        text-align: center;
+        margin-bottom:  40px;
+      }
+      footer .logo{
+        margin-bottom: 10px;
+      }
+      footer .support{
+        margin-bottom: 10px;
+      }
+      footer .support a {
+        color: #006dff;
+      }
+      footer .format-time{
       }
   body
-    h1 Format Renderer for eslint
-    
-    ul
+    div.header
+      div.project-wrap
+        div.name #{project.name}
+        div.project-job
+          a.text-yellow(href="http://dashboard.flow.ci/projects/#{project.id}/builds/#{event.id}" target="_blank") #&nbsp;#{event.number}
+      div.project-result
+        div.col.text-error
+          div.value #{errorCount}
+          div.name Errors
+        div.col.text-yellow
+          div.value #{warningCount}
+          div.name Warnings
+        div.col.text-normal
+          div.value #{filesCount}
+          div.name All&nbsp;Files
+
+    div.format-result
       each file in files
-        li= file.filePath
+        if file.errorCount || file.warningCount
+          div.file-wrap
+            div.file-name.text-black #{file.filePath}
+            div.content
+              each msg in file.messages
+                div.item
+                  div.severity(class="severity-#{msg.severity_str}") #{msg.severity_str}
+                  div.location.text-grey L:&nbsp;#{msg.line},&nbsp;C:&nbsp;#{msg.column}
+                  div.msg
+                    div.message #{msg.message}
+                    div.text-grey.rule_id #{msg.ruleId}
+                    div.text-grey.source
+                      pre #{msg.source}
+
+    footer
+      div.logo
+        a(href="http://flow.ci" target="_blank")
+          img(src="http://flow.ci/images/logo-inline-blue.svg")
+      div.support.
+        This&nbsp;page&nbsp;generated&nbsp;by&nbsp;
+        <a href="https://github.com/FIRHQ/flow_format_render_rubocop" target="_target">flow_format_render_rubocop</a>
+      div.format-time #{nowTime}
