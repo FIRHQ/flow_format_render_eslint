@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "Eslint format render",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FIRHQ/flow_format_render_eslint.git"
+  },
   "directories": {
     "test": "test"
   },
