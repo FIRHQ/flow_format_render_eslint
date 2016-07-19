@@ -144,7 +144,7 @@ html(lang='en')
       div.project-wrap
         div.name #{project.name}
         div.project-job
-          a.text-yellow(href="http://dashboard.flow.ci/projects/#{project.id}/builds/#{event.id}" target="_blank") #&nbsp;#{event.number}
+          a.text-yellow(href="http://dashboard.flow.ci/projects/#{project.id}/jobs/#{job.id}" target="_blank") #&nbsp;#{event.number}
       div.project-result
         div.col.text-error
           div.value #{errorCount}

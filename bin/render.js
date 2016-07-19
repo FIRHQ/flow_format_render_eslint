@@ -28,6 +28,10 @@ var event = {
   id: process.env.FLOW_EVENT_ID
 }
 
+var job = {
+  id: process.env.FLOW_JOB_ID
+}
+
 if (!eslintResult && !eslintResultFile) {
   console.log('WARNING: Eslint result json or result file is required');
   eslintResultFile = path.join(__dirname, '../tests/eslint_result.json');
@@ -37,6 +41,8 @@ renderer({
   project: project,
 
   event: event,
+
+  job: job,
 
   template: path.join(__dirname, '../lib/templates/layout.jade'),
 
